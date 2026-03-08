@@ -67,23 +67,27 @@ const FloatingCuteIcons = () => {
 };
 
 // --- KOMPONEN MESIN TIK ---
-const Typewriter = ({ text, delay = 50, onComplete }) => {
-  const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Typewriter = ({ text, delay = 45, onComplete }) => {
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, delay);
-      return () => clearTimeout(timeout);
-    } else if (onComplete) {
-      onComplete();
+    if (index >= text.length) {
+      onComplete?.();
+      return;
     }
-  }, [currentIndex, delay, text, onComplete]);
 
-  return <span className="whitespace-pre-line tracking-tight">{currentText}</span>;
+    const timeout = setTimeout(() => {
+      setIndex((prev) => prev + 1);
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [index, text.length, delay, onComplete]);
+
+  return (
+    <span className="whitespace-pre-line tracking-tight">
+      {text.slice(0, index)}
+    </span>
+  );
 };
 
 export default function App() {
@@ -155,11 +159,31 @@ export default function App() {
   };
 
   const memories = [
-    { type: 'image', url: img1, title: 'Your Classic Elegance', desc: 'Ada sesuatu yang abadi dalam cara kamu tersenyum.' },
-    { type: 'video', url: video1, title: 'Midnight Magic', desc: 'Bahkan kegelapan malam pun tak bisa menandingi sinarmu.' },
-    { type: 'image', url: img2, title: 'Deep Connection', desc: 'Seperti samudera, ada kedalaman yang tenang dalam setiap obrolan kita.' },
-    { type: 'video', url: video2, title: 'Guiding Light', desc: 'Terima kasih telah menjadi arah yang selalu menenangkan bagiku.' },
-  ];
+  {
+    type: "image",
+    url: img1,
+    title: "Your Classic Elegance",
+    desc: "Ada sesuatu yang selalu terasa tenang setiap kali melihatmu tersenyum. Bukan hanya karena senyummu indah, tapi karena di baliknya ada kehangatan yang sulit dijelaskan. Sejak kita pertama kali bertemu di kampus, kamu selalu punya cara sederhana untuk membuat hari terasa sedikit lebih baik. Kadang hanya lewat cerita kecil, kadang lewat tawa yang tiba-tiba muncul di tengah obrolan panjang kita."
+  },
+  {
+    type: "video",
+    url: video1,
+    title: "Midnight Magic",
+    desc: "Ada banyak malam yang terasa lebih singkat karena kita terus berbicara tanpa sadar waktu berjalan. Dari cerita sederhana sampai hal-hal yang lebih dalam, semuanya terasa ringan ketika dibagi denganmu. Di antara semua percakapan itu, aku mulai menyadari bahwa kehadiranmu bukan lagi sekadar teman ngobrol, tapi seseorang yang benar-benar membuat hari-hariku terasa lebih hidup."
+  },
+  {
+    type: "image",
+    url: img2,
+    title: "Deep Connection",
+    desc: "Beberapa orang datang ke hidup kita tanpa rencana, tapi perlahan menjadi bagian yang penting. Bersamamu, obrolan sederhana bisa berubah menjadi momen yang terasa berarti. Ada kenyamanan yang muncul ketika kita berbicara, seolah-olah kita sudah saling mengenal lebih lama dari yang sebenarnya."
+  },
+  {
+    type: "video",
+    url: video2,
+    title: "Guiding Light",
+    desc: "Aku mungkin tidak selalu pandai mengungkapkan semuanya dengan kata-kata, tapi satu hal yang pasti: kehadiranmu membawa banyak warna baru dalam hariku. Dari tawa kecil sampai perhatian sederhana yang kamu berikan, semuanya punya tempat tersendiri di ingatanku. Dan di hari spesialmu ini, aku hanya ingin kamu tahu bahwa kehadiranmu benar-benar berarti."
+  }
+];
 
   const suratCinta = `Happy Birthday, Ami 💙
 
@@ -713,26 +737,27 @@ my favorite person. ⚓💙✨`;
             <div className="
               max-w-2xl w-full 
               bg-white 
-              p-12 md:p-20 
+              p-10 md:p-20 
               rounded-[40px] 
-              shadow-shadow-2xl
+              shadow-2xl
               border border-slate-100 
               relative
               overflow-hidden
+              transform-gpu
             ">
               {/* ✨ Soft Navy Glow */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-20 -left-20 w-60 h-60 bg-blue-100/40 rounded-full blur-xl"></div>
-                <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-slate-200/40 rounded-full blur-xl"></div>
+                <div className="absolute -top-20 -left-20 w-48 h-48 bg-blue-100/40 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-slate-200/40 rounded-full blur-xl"></div>
               </div>
 
               {/* 📝 Paper Texture */}
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper.png')]"></div>
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('/assets/img/paper.png')]"></div>
               <div className="absolute top-10 right-10">
                  <Mail className="text-blue-50" size={80} />
               </div>
               
-              <div className="relative z-10 text-slate-900 text-2xl md:text-3xl font-serif leading-[1.8] italic min-h-[450px]">
+              <div className="relative z-10 text-slate-900 text-2xl md:text-3xl font-serif leading-[1.8] italic min-h-[380px]">
                 <Typewriter text={suratCinta} onComplete={() => setIsTypingDone(true)} />
               </div>
 
@@ -913,7 +938,7 @@ my favorite person. ⚓💙✨`;
           transform: translateX(100%);
         }
       }
-
+0
       html, body, #root {
       margin: 0;
       padding: 0;
