@@ -439,136 +439,150 @@ my favorite person. ⚓💙✨`;
           </div>
         )}
 
-        {/* --- GALLERY (Sharp & Deep Navy) --- */}
+        {/* --- GALLERY (Optimized & Smooth Mobile) --- */}
         {currentPage === 'gallery' && (
-            <motion.div 
-              className="py-32 space-y-48"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
+          <div className="py-24 space-y-24">
+
+            {/* Title */}
             <div className="flex flex-col items-center text-center">
-              <Cloud size={40} className="text-blue-100 mb-4 animate-pulse" />
-              <h2 className="text-6xl font-serif italic text-white">Gallery Journal</h2>
+              <Cloud size={36} className="text-blue-100 mb-4" />
+              <h2 className="text-5xl md:text-6xl font-serif italic text-white">
+                Gallery Journal
+              </h2>
               <div className="w-16 h-1 bg-blue-900 mt-6 rounded-full"></div>
             </div>
 
             {memories.map((item, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className={`flex flex-col md:flex-row gap-20 items-center ${i % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
-                >
+              <div
+                key={i}
+                className={`flex flex-col md:flex-row gap-10 items-center ${
+                  i % 2 !== 0 ? "md:flex-row-reverse" : ""
+                }`}
+              >
+
+                {/* Media */}
                 <div className="w-full md:w-3/5 relative">
-                  <div className="absolute -top-4 -left-4 w-full h-full border border-slate-200 rounded-2xl -z-10 translate-x-8 translate-y-8"></div>
-                  <div className="bg-white p-3 rounded-2xl shadow-[0_40px_80px_-15px_rgba(15,23,42,0.15)] overflow-hidden group">
-                    {item.type === 'image' ? (
-                      <img src={item.url} className="w-full aspect-[4/5] object-cover rounded-xl transition-all duration-700 group-hover:scale-105" />
+
+                  <div className="absolute -top-3 -left-3 w-full h-full border border-slate-200 rounded-2xl -z-10 translate-x-6 translate-y-6"></div>
+
+                  <div className="bg-white p-3 rounded-2xl shadow-lg overflow-hidden">
+
+                    {item.type === "image" ? (
+                      <img
+                        src={item.url}
+                        loading="lazy"
+                        className="w-full aspect-[4/5] object-cover rounded-xl"
+                      />
                     ) : (
                       <video
-                      src={item.url}
-                      poster={item.poster}
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      controls={false}
-                      className="w-full aspect-[4/5] object-cover rounded-xl"
+                        src={item.url}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        controls={false}
+                        disablePictureInPicture
+                        className="w-full aspect-[4/5] object-cover rounded-xl"
                       />
                     )}
-                    <div className="absolute top-8 right-8 bg-black/40 backdrop-blur-md p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Bookmark size={20} />
-                    </div>
+
                   </div>
                 </div>
-                <div className={`w-full md:w-2/5 space-y-8 ${i % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
-                  <div className={`flex items-center space-x-4 ${i % 2 !== 0 ? 'md:justify-end' : ''}`}>
+
+                {/* Text */}
+                <div
+                  className={`w-full md:w-2/5 space-y-6 ${
+                    i % 2 !== 0 ? "md:text-right" : "md:text-left"
+                  }`}
+                >
+
+                  <div
+                    className={`flex items-center space-x-4 ${
+                      i % 2 !== 0 ? "md:justify-end" : ""
+                    }`}
+                  >
                     <span className="w-8 h-px bg-slate-300"></span>
-                    <span className="text-blue-800 font-black text-xs uppercase tracking-[0.4em]">Section 0{i+1}</span>
+                    <span className="text-blue-800 font-black text-xs uppercase tracking-[0.35em]">
+                      Section 0{i + 1}
+                    </span>
                   </div>
-                  <h3 className="text-5xl font-serif italic text-white leading-tight">{item.title}</h3>
-                  <p className="text-slate-500 leading-relaxed font-medium text-lg">{item.desc}</p>
+
+                  <h3 className="text-4xl md:text-5xl font-serif italic text-white leading-tight">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-slate-400 leading-relaxed text-lg">
+                    {item.desc}
+                  </p>
+
                 </div>
-              </motion.div>
+              </div>
             ))}
 
-            <div className="py-20 flex flex-col items-center space-y-12">
-               <div className="flex space-x-2 text-slate-200">
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-               </div>
-               {/* --- PREMIUM INTERACTIVE READ BUTTON --- */}
+            {/* Bottom Button */}
+            <div className="py-16 flex flex-col items-center space-y-10">
+
+              <div className="flex space-x-2 text-slate-200">
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+                <Star size={16} fill="currentColor" />
+              </div>
+
               <motion.button
-              onClick={() => setCurrentPage("voice")}
-              whileTap={{ scale: 0.95 }}
-              className="
-              group relative overflow-hidden
-              px-12 py-7
-              rounded-3xl
-              border border-blue-900/30
-              bg-white/40 backdrop-blur-xl
-              shadow-lg
-              hover:shadow-2xl
-              hover:border-blue-900
-              hover:bg-white/60
-              transition-all duration-500
-              cursor-pointer
-            "
-            >
-
-              {/* 💎 Glass Reflection Shimmer */}
-              <span
+                onClick={() => setCurrentPage("voice")}
+                whileTap={{ scale: 0.95 }}
                 className="
-                absolute inset-0
-                bg-gradient-to-r
-                from-transparent
-                via-white/40
-                to-transparent
-                translate-x-[-150%]
-                group-hover:translate-x-[150%]
-                transition-transform duration-1000 ease-in-out
-              "
-              />
-
-              {/* 🌊 Ripple Effect */}
-              <span
-                className="
-                absolute inset-0
+                group relative overflow-hidden
+                px-10 py-6
                 rounded-3xl
-                opacity-0
-                group-active:opacity-100
-                group-active:animate-ping
-                bg-blue-900/20
+                border border-blue-900/30
+                bg-white/40 backdrop-blur-sm
+                shadow-lg
+                hover:shadow-xl
+                hover:border-blue-900
+                hover:bg-white/60
+                transition-all duration-300
+                cursor-pointer
               "
-              />
+              >
 
-              {/* ⚓ Button Content */}
-              <span className="relative flex items-center gap-4 text-blue-900 font-semibold tracking-wide">
-
-                {/* Icon Animation */}
-                <Anchor
-                  size={20}
-                  className="transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
+                {/* shimmer */}
+                <span
+                  className="
+                  absolute inset-0
+                  bg-gradient-to-r
+                  from-transparent
+                  via-white/40
+                  to-transparent
+                  translate-x-[-150%]
+                  group-hover:translate-x-[150%]
+                  transition-transform duration-700
+                "
                 />
 
-                <span className="text-lg">
-                  Read the Letter
+                <span className="relative flex items-center gap-4 text-blue-900 font-semibold tracking-wide">
+
+                  <Anchor
+                    size={20}
+                    className="transition-transform duration-300 group-hover:rotate-12"
+                  />
+
+                  <span className="text-lg">
+                    Read the Letter
+                  </span>
+
+                  <ChevronRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+
                 </span>
 
-                <ChevronRight
-                  size={18}
-                  className="transition-transform duration-500 group-hover:translate-x-1"
-                />
-
-              </span>
-            </motion.button>
+              </motion.button>
             </div>
-          </motion.div>
+
+          </div>
         )}
 
         {/* --- VOICE MESSAGE --- */}
@@ -700,15 +714,15 @@ my favorite person. ⚓💙✨`;
               bg-white 
               p-12 md:p-20 
               rounded-[40px] 
-              shadow-[0_50px_100px_-20px_rgba(15,23,42,0.15)]
+              shadow-shadow-2xl
               border border-slate-100 
               relative
               overflow-hidden
             ">
               {/* ✨ Soft Navy Glow */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-20 -left-20 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-slate-200/40 rounded-full blur-3xl"></div>
+                <div className="absolute -top-20 -left-20 w-60 h-60 bg-blue-100/40 rounded-full blur-xl"></div>
+                <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-slate-200/40 rounded-full blur-xl"></div>
               </div>
 
               {/* 📝 Paper Texture */}
