@@ -480,7 +480,8 @@ my favorite person. ⚓💙✨`;
                         loop
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="none"
+                        poster="/video-thumb.jpg"
                         controls={false}
                         disablePictureInPicture
                         className="w-full aspect-[4/5] object-cover rounded-xl"
