@@ -12,8 +12,8 @@ import { useScroll, useTransform } from "framer-motion";
 
 import img1 from './assets/img/1.jpeg'
 import img2 from './assets/img/2.jpeg'
-import video1 from './assets/video/1.MOV'
-import video2 from './assets/video/2.MOV'
+import video1 from './assets/video/1.mp4'
+import video2 from './assets/video/2.mp4'
 import musicFile from './assets/audio/keep-me.mp3'
 import voiceMessage from './assets/audio/voice.mp3'
 
@@ -32,10 +32,10 @@ const FloatingCuteIcons = () => {
           size: Math.random() * 15 + 12,
           duration: Math.random() * 10 + 7
         };
-        if (prev.length > 20) return [...prev.slice(1), newI];
+        if (prev.length > 10) return [...prev.slice(1), newI];
         return [...prev, newI];
       });
-    }, 1200);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -95,6 +95,21 @@ export default function App() {
   const [isTypingDone, setIsTypingDone] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 60000); // update tiap 1 menit
+    return () => clearInterval(interval);
+  }, []);
+
+  const particles = useRef(
+    Array.from({ length: 8 }).map(() => ({
+      top: Math.random() * 100,
+      left: Math.random() * 100
+    }))
+  );
 
   const handlePinClick = (num) => {
     if (pin.length < 6) {
@@ -111,6 +126,10 @@ export default function App() {
       }
     }
   };
+
+  const waves = useRef(
+  Array.from({ length: 18 }).map(() => Math.random() * 20 + 10)
+);
 
   const deletePin = () => setPin(pin.slice(0, -1));
 
@@ -212,7 +231,7 @@ my favorite person. ⚓💙✨`;
 
   // ⭐ Parallax Effect
   const { scrollY } = useScroll();
-  const yBg = useTransform(scrollY, [0, 1000], [0, -200]);
+  const yBg = useTransform(scrollY, [0, 1000], [0, -80]);
 
   return (
     <div className="min-h-[100dvh] w-full bg-[#020617] flex flex-col items-center justify-start relative overflow-x-hidden font-sans text-white selection:bg-blue-100">
@@ -234,216 +253,145 @@ my favorite person. ⚓💙✨`;
         preload="auto"
       />
 
-     {/* --- ULTRA NAVY LOCKSCREEN PREMIUM FINAL RESPONSIVE --- */}
-      <AnimatePresence mode="wait">
-        {currentPage === "lockscreen" && (
-          <motion.div
-            key="lockscreen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-              filter: "blur(20px)",
-              scale: 1.05
-            }}
-            transition={{ duration: 0.6 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center
-                      px-4
-                      pt-[env(safe-area-inset-top)]
-                      pb-[env(safe-area-inset-bottom)]"
-          >
+     {/* --- ULTRA NAVY LOCKSCREEN OPTIMIZED --- */}
+    <AnimatePresence mode="wait">
+    {currentPage === "lockscreen" && (
+    <motion.div
+    key="lockscreen"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0, scale: 1.05 }}
+    transition={{ duration: 0.5 }}
+    className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+    >
 
-            {/* 🌊 Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
+    {/* Background */}
+    <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
 
-            {/* ✨ Navy Particles */}
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(25)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{
-                    y: [0, -40, 0],
-                    opacity: [0.2, 0.5, 0.2]
-                  }}
-                  transition={{
-                    duration: 8 + i,
-                    repeat: Infinity,
-                    delay: i * 0.3
-                  }}
-                  className="absolute w-[2px] h-[2px] bg-blue-300 rounded-full"
-                  style={{
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`
-                  }}
-                />
-              ))}
-            </div>
+    {/* Particles */}
+    <div className="absolute inset-0 overflow-hidden">
+    {particles.current.map((p, i) => (
+    <motion.div
+    key={i}
+    animate={{ y: [0, -40, 0], opacity: [0.2, 0.5, 0.2] }}
+    transition={{
+    duration: 8 + i,
+    repeat: Infinity,
+    ease: "easeInOut"
+    }}
+    className="absolute w-[2px] h-[2px] bg-blue-300 rounded-full"
+    style={{
+    top: `${p.top}%`,
+    left: `${p.left}%`
+    }}
+    />
+    ))}
+    </div>
 
-            {/* 💎 Glass Container */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, filter: "blur(20px)", scale: 1.1 }}
-              transition={{ duration: 0.8 }}
-              className="
-                relative
-                backdrop-blur-3xl
-                bg-white/10
-                border border-white/20
-                shadow-2xl
-                rounded-[40px]
+    {/* Glass Container */}
+    <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6 }}
+    className="relative backdrop-blur-md bg-white/10 border border-white/20
+    shadow-xl rounded-[40px] w-full max-w-sm sm:max-w-md
+    px-6 sm:px-10 py-10 sm:py-14 flex flex-col items-center"
+    >
 
-                w-full
-                max-w-sm
-                sm:max-w-md
+    {/* Lock Icon */}
+    <motion.div
+    animate={{ rotate: [0, -5, 5, -5, 0] }}
+    transition={{ duration: 4, repeat: Infinity }}
+    >
+    <Lock size={22} className="text-blue-300 mb-6 opacity-80" />
+    </motion.div>
 
-                px-6
-                sm:px-10
-                py-10
-                sm:py-14
+    {/* Time */}
+    <motion.h2
+    animate={{ y: [0, -6, 0] }}
+    transition={{ duration: 5, repeat: Infinity }}
+    className="text-4xl sm:text-6xl font-light font-serif tracking-tight text-white"
+    >
+    {time.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit"
+    })}
+    </motion.h2>
 
-                flex flex-col
-                items-center
-              "
-            >
+    {/* Date */}
+    <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs mt-3 text-blue-300 text-center">
+    {time.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+    })}
+    </p>
 
-              {/* 🔐 Lock */}
-              <motion.div
-                animate={{ rotate: [0, -5, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
-                <Lock size={22} className="text-blue-300 mb-6 opacity-80" />
-              </motion.div>
+    {/* PIN Section */}
+    <div className={`flex flex-col items-center gap-10 mt-12 w-full ${errorPin ? "animate-shake" : ""}`}>
 
-              {/* 🕒 Time */}
-              <motion.h2
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 5, repeat: Infinity }}
-                className="text-4xl sm:text-6xl font-light font-serif tracking-tight text-white"
-              >
-                {new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit"
-                })}
-              </motion.h2>
+    {/* PIN dots */}
+    <div className="flex gap-3">
+    {[...Array(6)].map((_, i) => (
+    <motion.div
+    key={i}
+    animate={pin.length > i ? { scale: 1.2 } : { scale: 1 }}
+    transition={{ duration: 0.2 }}
+    className={`w-3 h-3 rounded-full border-2 ${
+    pin.length > i
+    ? "bg-blue-400 border-blue-400"
+    : "border-blue-300/40"
+    }`}
+    />
+    ))}
+    </div>
 
-              {/* 📅 Date */}
-              <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs mt-3 text-blue-300 text-center">
-                {new Date().toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long"
-                })}
-              </p>
+    {/* Number pad */}
+    <div className="grid grid-cols-3 gap-5 sm:gap-6 w-full justify-items-center">
 
-              {/* 🔢 PIN Section */}
-              <div
-                className={`flex flex-col items-center gap-10 mt-12 w-full ${
-                  errorPin ? "animate-shake" : ""
-                }`}
-              >
+    {[1,2,3,4,5,6,7,8,9].map(num => (
+    <motion.button
+    key={num}
+    whileTap={{ scale: 0.85 }}
+    onClick={() => handlePinClick(num)}
+    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center
+    text-lg sm:text-xl font-light bg-white/10 backdrop-blur-md
+    border border-white/20 text-blue-200 shadow-md
+    active:bg-blue-500 active:text-white transition-all"
+    >
+    {num}
+    </motion.button>
+    ))}
 
-                {/* PIN DOTS */}
-                <div className="flex gap-3">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      animate={pin.length > i ? { scale: 1.3 } : { scale: 1 }}
-                      transition={{ duration: 0.2 }}
-                      className={`w-3 h-3 rounded-full border-2 ${
-                        pin.length > i
-                          ? "bg-blue-400 border-blue-400 shadow-md shadow-blue-500/50"
-                          : "border-blue-300/40"
-                      }`}
-                    />
-                  ))}
-                </div>
+    <div />
 
-                {/* NUMBER PAD */}
-                <div className="grid grid-cols-3 gap-5 sm:gap-6 w-full justify-items-center">
+    <motion.button
+    whileTap={{ scale: 0.85 }}
+    onClick={() => handlePinClick(0)}
+    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center
+    text-lg sm:text-xl font-light bg-white/10 backdrop-blur-md
+    border border-white/20 text-blue-200 shadow-md
+    active:bg-blue-500 active:text-white transition-all"
+    >
+    0
+    </motion.button>
 
-                  {[1,2,3,4,5,6,7,8,9].map(num => (
-                    <motion.button
-                      key={num}
-                      whileTap={{ scale: 0.85 }}
-                      onClick={() => {
-                        handlePinClick(num);
-                        document.body.animate(
-                          [
-                            { transform: "scale(1)" },
-                            { transform: "scale(0.995)" },
-                            { transform: "scale(1)" }
-                          ],
-                          { duration: 120 }
-                        );
-                      }}
-                      className="
-                        w-14 h-14
-                        sm:w-16 sm:h-16
-                        rounded-full
-                        flex items-center justify-center
-                        text-lg sm:text-xl
-                        font-light
-                        bg-white/10
-                        backdrop-blur-xl
-                        border border-white/20
-                        text-blue-200
-                        shadow-lg
-                        active:bg-blue-500
-                        active:text-white
-                        transition-all
-                      "
-                    >
-                      {num}
-                    </motion.button>
-                  ))}
+    <motion.button
+    whileTap={{ scale: 0.85 }}
+    onClick={deletePin}
+    className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center
+    text-blue-300 active:text-white transition-all"
+    >
+    <Delete size={20} />
+    </motion.button>
 
-                  <div />
+    </div>
+    </div>
 
-                  <motion.button
-                    whileTap={{ scale: 0.85 }}
-                    onClick={() => handlePinClick(0)}
-                    className="
-                      w-14 h-14
-                      sm:w-16 sm:h-16
-                      rounded-full
-                      flex items-center justify-center
-                      text-lg sm:text-xl
-                      font-light
-                      bg-white/10
-                      backdrop-blur-xl
-                      border border-white/20
-                      text-blue-200
-                      shadow-lg
-                      active:bg-blue-500
-                      active:text-white
-                      transition-all
-                    "
-                  >
-                    0
-                  </motion.button>
-
-                  <motion.button
-                    whileTap={{ scale: 0.85 }}
-                    onClick={deletePin}
-                    className="
-                      w-14 h-14
-                      sm:w-16 sm:h-16
-                      flex items-center justify-center
-                      text-blue-300
-                      active:text-white
-                      transition-all
-                    "
-                  >
-                    <Delete size={20} />
-                  </motion.button>
-
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    </motion.div>
+    </motion.div>
+    )}
+    </AnimatePresence>
 
       {/* --- NAVY MUSIC CONTROLLER --- */}
       {currentPage !== 'lockscreen' && (
@@ -521,7 +469,16 @@ my favorite person. ⚓💙✨`;
                     {item.type === 'image' ? (
                       <img src={item.url} className="w-full aspect-[4/5] object-cover rounded-xl transition-all duration-700 group-hover:scale-105" />
                     ) : (
-                      <video src={item.url} autoPlay loop muted playsInline className="w-full aspect-[4/5] object-cover rounded-xl" />
+                      <video
+                      src={item.url}
+                      poster={item.poster}
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      controls={false}
+                      className="w-full aspect-[4/5] object-cover rounded-xl"
+                      />
                     )}
                     <div className="absolute top-8 right-8 bg-black/40 backdrop-blur-md p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
                         <Bookmark size={20} />
@@ -634,7 +591,7 @@ my favorite person. ⚓💙✨`;
               <audio ref={voiceRef} src={voiceMessage} />
 
               {/* Voice Card */}
-          <div className="relative group backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
+          <div className="relative group backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
 
             {/* Glow */}
             <div className="absolute inset-0 opacity-20 bg-gradient-to-tr from-blue-400/40 via-transparent to-transparent"></div>
@@ -679,7 +636,7 @@ my favorite person. ⚓💙✨`;
                       isVoicePlaying ? "animate-wave" : "opacity-40"
                     }`}
                     style={{
-                      height: `${Math.random() * 20 + 10}px`,
+                      height: `${waves.current[i]}px`,
                       animationDelay: `${i * 0.05}s`
                     }}
                   />
