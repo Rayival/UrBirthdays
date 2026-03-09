@@ -94,6 +94,7 @@ const Typewriter = ({ text, delay = 45, onComplete }) => {
 export default function App() {
   const voiceRef = useRef(null);
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
+  const [canContinue, setCanContinue] = useState(false);
   const [currentPage, setCurrentPage] = useState('lockscreen');
   const [pin, setPin] = useState('');
   const [errorPin, setErrorPin] = useState(false);
@@ -663,6 +664,7 @@ my favorite person. ⚓💙✨`;
 
                   voiceRef.current.play();
                   setIsVoicePlaying(true);
+                  setCanContinue(true);
                 }}
                 className="
                 shrink-0
@@ -714,7 +716,7 @@ my favorite person. ⚓💙✨`;
               </div>
 
               {/* Continue */}
-              {isVoicePlaying && (
+              {canContinue && (
                 <button
                   onClick={() => {
                     if (voiceRef.current) {
