@@ -163,25 +163,25 @@ export default function App() {
     type: "image",
     url: img1,
     title: "Your Classic Elegance",
-    desc: "Ada sesuatu yang selalu terasa tenang setiap kali melihatmu tersenyum. Bukan hanya karena senyummu indah, tapi karena di baliknya ada kehangatan yang sulit dijelaskan. Sejak kita pertama kali bertemu di kampus, kamu selalu punya cara sederhana untuk membuat hari terasa sedikit lebih baik. Kadang hanya lewat cerita kecil, kadang lewat tawa yang tiba-tiba muncul di tengah obrolan panjang kita."
+    desc: "Setiap kali aku lihat kamu tersenyum, ada perasaan tenang yang selalu muncul tanpa aku sadari. Bukan cuma karena senyummu indah, tapi karena ada sesuatu dari cara kamu tertawa yang bikin semuanya terasa lebih ringan. Kadang hari yang biasa aja bisa tiba-tiba terasa lebih menyenangkan cuma karena ada kamu di situ."
   },
   {
     type: "video",
     url: video1,
     title: "Midnight Magic",
-    desc: "Ada banyak malam yang terasa lebih singkat karena kita terus berbicara tanpa sadar waktu berjalan. Dari cerita sederhana sampai hal-hal yang lebih dalam, semuanya terasa ringan ketika dibagi denganmu. Di antara semua percakapan itu, aku mulai menyadari bahwa kehadiranmu bukan lagi sekadar teman ngobrol, tapi seseorang yang benar-benar membuat hari-hariku terasa lebih hidup."
+    desc: "Ada malam-malam di mana kita ngobrol lama banget sampai lupa waktu. Dari cerita kecil sampai hal-hal random yang tiba-tiba kepikiran, semuanya terasa gampang buat dibicarakan sama kamu. Entah kenapa, ngobrol sama kamu selalu terasa nyaman, seolah waktu berjalan lebih cepat dari biasanya."
   },
   {
     type: "image",
     url: img2,
     title: "Deep Connection",
-    desc: "Beberapa orang datang ke hidup kita tanpa rencana, tapi perlahan menjadi bagian yang penting. Bersamamu, obrolan sederhana bisa berubah menjadi momen yang terasa berarti. Ada kenyamanan yang muncul ketika kita berbicara, seolah-olah kita sudah saling mengenal lebih lama dari yang sebenarnya."
+    desc: "Kadang aku merasa aneh juga, bagaimana obrolan sederhana sama kamu bisa terasa begitu berarti. Kita bisa tertawa cuma karena hal kecil, atau tiba-tiba ngobrol lebih dalam tanpa direncanakan. Tapi justru dari momen-momen kecil itu aku sadar kalau kebersamaan kita selalu punya rasa yang berbeda."
   },
   {
     type: "video",
     url: video2,
     title: "Guiding Light",
-    desc: "Aku mungkin tidak selalu pandai mengungkapkan semuanya dengan kata-kata, tapi satu hal yang pasti: kehadiranmu membawa banyak warna baru dalam hariku. Dari tawa kecil sampai perhatian sederhana yang kamu berikan, semuanya punya tempat tersendiri di ingatanku. Dan di hari spesialmu ini, aku hanya ingin kamu tahu bahwa kehadiranmu benar-benar berarti."
+    desc: "Aku mungkin nggak selalu pandai mengungkapkan semuanya dengan kata-kata. Tapi satu hal yang aku tahu, kehadiran kamu membawa banyak warna dalam hariku. Dari perhatian kecil sampai cara kamu selalu ada buat ngobrol, semuanya punya tempat tersendiri di pikiranku. Dan di hari ulang tahun kamu ini, aku cuma ingin kamu tahu kalau kamu benar-benar berarti buat aku."
   }
 ];
 
