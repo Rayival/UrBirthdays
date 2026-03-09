@@ -15,7 +15,7 @@ import img2 from './assets/img/2.jpeg'
 import video1 from './assets/video/1.mp4'
 import video2 from './assets/video/2.mp4'
 import musicFile from './assets/audio/keep-me.mp3'
-import voiceMessage from './assets/audio/voice.mp3'
+import voiceMessage from './assets/audio/voice.wav'
 // import thumb1 from "./assets/img/thumb1.jpg"
 
 // --- KOMPONEN IKON LUCU MENGAMBANG (Biru & Putih) ---
@@ -276,6 +276,7 @@ my favorite person. ⚓💙✨`;
         src={musicFile} 
         loop 
         preload="auto"
+        volume={0.5}
       />
 
      {/* --- ULTRA NAVY LOCKSCREEN OPTIMIZED --- */}
@@ -628,7 +629,16 @@ my favorite person. ⚓💙✨`;
                 </p>
               </div>
 
-              <audio ref={voiceRef} src={voiceMessage} />
+              <audio 
+              ref={voiceRef} 
+              src={voiceMessage}
+              onEnded={() => {
+                if (audioRef.current) {
+                  audioRef.current.volume = 0.8; // kembalikan volume musik
+                }
+                setIsVoicePlaying(false);
+              }}
+            />
 
               {/* Voice Card */}
           <div className="relative group backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
@@ -646,6 +656,10 @@ my favorite person. ⚓💙✨`;
               {/* PLAY BUTTON */}
               <button
                 onClick={() => {
+                  if (audioRef.current) {
+                    audioRef.current.volume = 0.15; // kecilkan musik
+                  }
+
                   voiceRef.current.play();
                   setIsVoicePlaying(true);
                 }}
@@ -686,7 +700,7 @@ my favorite person. ⚓💙✨`;
 
               {/* Duration */}
               <span className="text-blue-200 text-xs md:text-sm font-mono tracking-wider shrink-0">
-                0:10
+                0:12
               </span>
 
             </div>
