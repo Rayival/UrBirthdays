@@ -16,6 +16,7 @@ import video1 from './assets/video/1.mp4'
 import video2 from './assets/video/2.mp4'
 import musicFile from './assets/audio/keep-me.mp3'
 import voiceMessage from './assets/audio/voice.mp3'
+// import thumb1 from "./assets/img/thumb1.jpg"
 
 // --- KOMPONEN IKON LUCU MENGAMBANG (Biru & Putih) ---
 const FloatingCuteIcons = () => {
@@ -32,7 +33,7 @@ const FloatingCuteIcons = () => {
           size: Math.random() * 15 + 12,
           duration: Math.random() * 10 + 7
         };
-        if (prev.length > 10) return [...prev.slice(1), newI];
+        if (prev.length > 6) return [...prev.slice(1), newI];
         return [...prev, newI];
       });
     }, 2000);
@@ -505,7 +506,7 @@ my favorite person. ⚓💙✨`;
                         muted
                         playsInline
                         preload="none"
-                        poster="/video-thumb.jpg"
+                        // poster="/video-thumb.png"
                         controls={false}
                         disablePictureInPicture
                         className="w-full aspect-[4/5] object-cover rounded-xl"
@@ -938,7 +939,7 @@ my favorite person. ⚓💙✨`;
           transform: translateX(100%);
         }
       }
-0
+
       html, body, #root {
       margin: 0;
       padding: 0;
