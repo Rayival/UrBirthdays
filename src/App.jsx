@@ -15,7 +15,7 @@ import img2 from './assets/img/2.jpeg'
 import video1 from './assets/video/1.mp4'
 import video2 from './assets/video/2.mp4'
 import musicFile from './assets/audio/keep-me.mp3'
-import voiceMessage from './assets/audio/voice.wav'
+import voiceMessage from './assets/audio/valdes.mp3'
 // import thumb1 from "./assets/img/thumb1.jpg"
 
 // --- KOMPONEN IKON LUCU MENGAMBANG (Biru & Putih) ---
