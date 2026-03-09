@@ -630,15 +630,15 @@ my favorite person. ⚓💙✨`;
               </div>
 
               <audio 
-              ref={voiceRef} 
-              src={voiceMessage}
-              onEnded={() => {
-                if (audioRef.current) {
-                  audioRef.current.volume = 0.8; // kembalikan volume musik
-                }
-                setIsVoicePlaying(false);
-              }}
-            />
+                ref={voiceRef} 
+                src={voiceMessage}
+                onEnded={() => {
+                  if (audioRef.current) {
+                    audioRef.current.play();
+                  }
+                  setIsVoicePlaying(false);
+                }}
+              />
 
               {/* Voice Card */}
           <div className="relative group backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-6 md:p-8 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
@@ -657,7 +657,7 @@ my favorite person. ⚓💙✨`;
               <button
                 onClick={() => {
                   if (audioRef.current) {
-                    audioRef.current.volume = 0.15; // kecilkan musik
+                    audioRef.current.pause(); // hentikan musik di iOS
                   }
 
                   voiceRef.current.play();
