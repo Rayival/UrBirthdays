@@ -632,6 +632,7 @@ my favorite person. ⚓💙✨`;
               <audio 
                 ref={voiceRef} 
                 src={voiceMessage}
+                preload="auto"
                 onEnded={() => {
                   if (audioRef.current) {
                     audioRef.current.play();
@@ -715,7 +716,18 @@ my favorite person. ⚓💙✨`;
               {/* Continue */}
               {isVoicePlaying && (
                 <button
-                  onClick={() => setCurrentPage('letter')}
+                  onClick={() => {
+                    if (voiceRef.current) {
+                      voiceRef.current.pause();
+                      voiceRef.current.currentTime = 0;
+                    }
+
+                    if (audioRef.current) {
+                      audioRef.current.play().catch(() => {});
+                    }
+
+                    setCurrentPage('letter');
+                  }}
                   className="
                   group
                   mt-4
